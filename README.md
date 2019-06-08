@@ -19,17 +19,24 @@ You may download it to any folder in your computer.
 ### Create your roles/update-blogs/vars/main.yml file
 
 ```
-wpcliuser: gorka
-wpcligroup: gorka
+wpcliuser: valid_username_in_the_server
+wpcligroup: valid_group_in_the_server
 wpclipath: /usr/local/bin/wp
 projects:
-    urlanheat.com:
-        blog_folder: /var/www/urlanheat.com/public/blog
-    seguridad.ilusianet.com:
-        blog_folder: /var/www/seguridad.ilusianet.com/public
-    nideaderedes.urlansoft.com:
-        blog_folder: /var/www/nideaderedes.urlansoft.com/public
+    mydomain.com:
+        blog_folder: /var/www/mydomain.com/
 ```     
+### Modify /etc/ansible/hosts
+
+Add a section called [blogs]:
+
+```
+[blogs]
+
+mydomain.com
+```
+
+NOTE: Only the domains in this folder will be updated.
 
 ## Usage
 
