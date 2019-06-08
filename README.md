@@ -50,6 +50,8 @@ $ ansible-playbook wp.yml
 
 $ ansible-playbook wp.yml --extra-vars "installcli=true" -K
 
+NOTE: If I were you I would install this manually in your server. Just added it for very lazy people.
+
 ### If you want mayor WordPress version updates
 
 $ ansible-playbook wp.yml --extra-vars "major=true"
