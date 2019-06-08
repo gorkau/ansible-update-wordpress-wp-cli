@@ -1,0 +1,4 @@
+---
+- hosts: blogs
+  roles:
+    - update-blogs

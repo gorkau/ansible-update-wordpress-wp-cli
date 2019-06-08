@@ -1,0 +1,61 @@
+---
+# To install WP-Cli and Major version updates:
+#    ansible-playbook wp.yml --extra-vars "major=true installcli=true" -K
+# If you only want minor version updates:
+#    ansible-playbook wp.yml
+
+- name: Install WordPress Cli
+  register: wpclidonwloaded
+  become: yes
+  when: installcli is defined
+  get_url: 
+    url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    dest: "{{ wpclipath }}"
+    mode: '0755'
+    owner: "{{ wpcliuser }}"
+    group: "{{ wpcligroup }}"
+
+- name: Backup database
+  command: "{{ wpclipath }} db export {{ projects[inventory_hostname].blog_folder }}/backup.sql"
+  args:
+    chdir: '{{ projects[inventory_hostname].blog_folder }}'
+
+- name: Update WordPress Core (Major version)
+  command: "{{ wpclipath }} core update"
+  when: major is defined
+  args:
+    chdir: '{{ projects[inventory_hostname].blog_folder }}'
+
+- name: Update WordPress Core (Minor version)
+  command: "{{ wpclipath }} core update --minor"
+  when: major is not defined
+  args:
+    chdir: '{{ projects[inventory_hostname].blog_folder }}'
+
+- name: Update WordPress Core Database
+  command: "{{ wpclipath }} core update-db"
+  args:
+    chdir: '{{ projects[inventory_hostname].blog_folder }}'
+
+- name: Update WordPress Core Language
+  command: "{{ wpclipath }} language core update"
+  args:
+    chdir: '{{ projects[inventory_hostname].blog_folder }}'
+
+- name: Update WordPress Plugins (Major version)
+  command: "{{ wpclipath }} plugin update --all"
+  when: major is defined
+  args:
+    chdir: '{{ projects[inventory_hostname].blog_folder }}'
+
+- name: Update WordPress Plugins (Minior version)
+  command: "{{ wpclipath }} plugin update --all --minor"
+  when: major is not defined
+  args:
+    chdir: '{{ projects[inventory_hostname].blog_folder }}'
+
+- name: Update WordPress Themes
+  command: "{{ wpclipath }} theme update --all"
+  args:
+    chdir: '{{ projects[inventory_hostname].blog_folder }}'
+
