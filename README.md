@@ -55,3 +55,9 @@ NOTE: If I were you I would install this manually in your server. Just added it 
 ### If you want mayor WordPress version updates
 
 $ ansible-playbook wp.yml --extra-vars "major=true"
+
+## If you do not like WP-Cli
+
+Peter (??) created this script that does not use WP-Cli, just plain Ansible:
+
+https://www.petersplanet.nl/index.php/2017/12/10/automate-wordpress-updates-with-ansible/
