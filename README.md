@@ -56,6 +56,11 @@ NOTE: If I were you I would install this manually in your server. Just added it 
 
 $ ansible-playbook wp.yml --extra-vars "major=true"
 
+## TODO
+
+* Backup all the files before updating.
+* The database backup is always using the same file. I would like to use a different file every time. And maybe download them compressed and delete the old ones.
+
 ## If you do not like WP-Cli
 
 Peter (??) created this script that does not use WP-Cli, just plain Ansible:
